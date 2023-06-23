@@ -1,0 +1,5 @@
+---
+- name: "Customizing Kali"
+  hosts: all
+  roles:
+    - role: "roles/configure-tmux"

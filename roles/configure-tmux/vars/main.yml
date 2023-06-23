@@ -1,0 +1,2 @@
+---
+tmux_install_path: "{{ ansible_env.HOME }}/.config/tmux"

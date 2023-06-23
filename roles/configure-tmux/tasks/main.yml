@@ -1,0 +1,11 @@
+---
+- name: "Install Tmux"
+  apt:
+    name: tmux
+    state: present
+  become: true
+  become_method: sudo
+- name: "Clone Tmux Conf"
+  git:
+    repo: "git@github.com:glorisonlai/tmux_config.git"
+    dest: "{{ tmux_install_path }}"
