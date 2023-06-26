@@ -1,0 +1,9 @@
+---
+- name: "Install OMZ"
+  git:
+    repo: "git@github.com:ohmyzsh/ohmyzsh"
+    dest: "{{ omz_install_path }}"
+- name: "Copy OMZ config"
+  git:
+    repo: "git@github.com:glorisonlai/configs/zsh_config.git"
+    dest: "{{ omz_config_dir }}"
