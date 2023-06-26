@@ -1,0 +1,14 @@
+---
+- name: "Install Nvim"
+  apt:
+    name: tmux
+    state: present
+  become: true
+- name: "Install AstroNvim Config"
+  git:
+    repo: "git@github.com:glorisonlai/astronvim_config.git"
+    dest: "{{ nvim_config_path }}"
+- name: "Install Plugins"
+  shell: "nvim --cmd PlugInstall"
+-- Figure out how to close file
+- name: "Install TS"
