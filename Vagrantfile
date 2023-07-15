@@ -2,8 +2,6 @@ Vagrant.configure("2") do |config|
   config.vm.box = "kalilinux/rolling"
   config.vm.define "kali"
 
-  config.vm.network "public_network", "dev": "enp2s0", "mode": "bridge", "type": "bridge"
-
   config.vm.provider "libvirt" do |libvirt|
     libvirt.cpus = 1
     libvirt.memory = 4096

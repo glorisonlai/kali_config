@@ -1,14 +1,29 @@
 ---
-- name: "Install Nvim"
+- name: "Install Nvim 0.8 Prereqs"
   apt:
-    name: tmux
+    name: ["ninja-build", "gettext", "cmake", "unzip", "curl"]
     state: present
   become: true
-- name: "Install AstroNvim Config"
+- name: "Get Nvim 0.8 Source"
   git:
-    repo: "git@github.com:glorisonlai/astronvim_config.git"
+    name: https://github.com/neovim/neovim
+    dest: "{{ nvim_source_path }}"
+    depth: 1
+- name: "Build Nvim"
+  shell: "cd {{ nvim_source_path }} && make CMAKE_BUILD_TYPE=RelWithDebInfo"
+- name: "Install Nvim"
+  shell: "cd {{ nvim_source_path }}/build && cpack -G DEB && dpkg -i nvim-linux64.deb"
+  become: true
+- name: "Install AstroNvim"
+  git:
+    repo: "https://github.com/AstroNvim/AstroNvim.git"
     dest: "{{ nvim_config_path }}"
-- name: "Install Plugins"
-  shell: "nvim --cmd PlugInstall"
--- Figure out how to close file
-- name: "Install TS"
+    depth: 1
+- name: "Copy AstroNvim Config"
+  git:
+    repo: "https://github.com/glorisonlai/astronvim_config.git"
+    dest: "{{ nvim_user_config_path }}"
+# name: "Install Plugins"
+# shell: "nvim --cmd PlugInstall"
+# Figure out how to close file
+# name: "Install TS"

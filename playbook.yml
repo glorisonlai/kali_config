@@ -3,3 +3,4 @@
   hosts: all
   roles:
     - role: "roles/configure-tmux"
+    - role: "roles/configure-nvim"

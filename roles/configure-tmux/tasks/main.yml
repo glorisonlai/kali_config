@@ -5,7 +5,8 @@
     state: present
   become: true
   become_method: sudo
+
 - name: "Clone Tmux Conf"
   git:
-    repo: "git@github.com:glorisonlai/tmux_config.git"
+    repo: "https://github.com/glorisonlai/tmux_config.git"
     dest: "{{ tmux_install_path }}"
