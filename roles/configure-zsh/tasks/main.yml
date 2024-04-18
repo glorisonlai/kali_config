@@ -1,9 +1,19 @@
 ---
+- name: "Install OMZ Prereqs"
+  apt:
+    name: ["curl", "git", "zsh"]
+    state: present
+  become: true
 - name: "Install OMZ"
-  git:
-    repo: "git@github.com:ohmyzsh/ohmyzsh"
-    dest: "{{ omz_install_path }}"
+  ansible.builtin.shell:
+    cmd: "sh -c $(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 - name: "Copy OMZ config"
-  git:
-    repo: "git@github.com:glorisonlai/configs/zsh_config.git"
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/glorisonlai/zsh_config/main/zshrc"
     dest: "{{ omz_config_dir }}"
+- name: "Create Zshrc bak"
+  ansible.builtin.shell:
+    cmd: "mv ~/.zshrc ~/.zshrc.bak"
+- name: "Link OMZ config"
+  ansible.builtin.shell:
+    cmd: "ln -s {{ omz_config_dir }}/zshrc ~/.zshrc"

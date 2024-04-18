@@ -1,4 +1,3 @@
 ---
 nvim_source_path: "{{ ansible_env.HOME}}/neovim"
 nvim_config_path: "{{ ansible_env.HOME }}/.config/nvim"
-nvim_user_config_path: "{{ nvim_config_path }}/user"

@@ -1,28 +1,29 @@
 ---
-- name: "Install Nvim 0.8 Prereqs"
+- name: "Install Nvim 0.95 Prereqs"
   apt:
     name: ["ninja-build", "gettext", "cmake", "unzip", "curl"]
     state: present
   become: true
-- name: "Get Nvim 0.8 Source"
-  git:
-    name: https://github.com/neovim/neovim
+- name: "Get Nvim 0.95 Source"
+  ansible.builtin.get_url:
+    url: https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage
     dest: "{{ nvim_source_path }}"
-    depth: 1
-- name: "Build Nvim"
-  shell: "cd {{ nvim_source_path }} && make CMAKE_BUILD_TYPE=RelWithDebInfo"
 - name: "Install Nvim"
-  shell: "cd {{ nvim_source_path }}/build && cpack -G DEB && dpkg -i nvim-linux64.deb"
-  become: true
-- name: "Install AstroNvim"
+  ansible.builtin.shell:
+    chdir: "{{nvim_source_path}}"
+    cmd: "chmod u+x nvim.appimage"
+- name: "Expose Nvim Globally"
+  ansible.builtin.shell:
+    chdir: "{{nvim_source_path}}"
+    cmd: "sudo mkdir -p /opt/nvim && sudo mv nvim.appimage /opt/nvim/nvim"
+- name: "Add Nvim to PATH"
+  ansible.builtin.shell:
+    cmd: "echo 'export PATH=$PATH:/opt/nvim' >> ~/.zshrc"
+- name: "Copy AstroNvim"
   git:
-    repo: "https://github.com/AstroNvim/AstroNvim.git"
+    repo: "https://github.com/glorisonlai/astronvimv4_config.git"
     dest: "{{ nvim_config_path }}"
     depth: 1
-- name: "Copy AstroNvim Config"
-  git:
-    repo: "https://github.com/glorisonlai/astronvim_config.git"
-    dest: "{{ nvim_user_config_path }}"
 # name: "Install Plugins"
 # shell: "nvim --cmd PlugInstall"
 # Figure out how to close file
