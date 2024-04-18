@@ -5,3 +5,4 @@
     - role: "roles/configure-zsh"
     - role: "roles/configure-tmux"
     - role: "roles/configure-nvim"
+    - role: "roles/install-gh-cli"

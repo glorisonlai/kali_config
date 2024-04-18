@@ -15,16 +15,12 @@
 - name: "Expose Nvim Globally"
   ansible.builtin.shell:
     chdir: "{{nvim_source_path}}"
-    cmd: "sudo mkdir -p /opt/nvim && sudo mv nvim.appimage /opt/nvim/nvim"
+    cmd: "sudo mkdir -p /opt/nvim && sudo cp nvim.appimage /opt/nvim/nvim"
 - name: "Add Nvim to PATH"
   ansible.builtin.shell:
     cmd: "echo 'export PATH=$PATH:/opt/nvim' >> ~/.zshrc"
-- name: "Copy AstroNvim"
-  git:
-    repo: "https://github.com/glorisonlai/astronvimv4_config.git"
-    dest: "{{ nvim_config_path }}"
-    depth: 1
-# name: "Install Plugins"
-# shell: "nvim --cmd PlugInstall"
-# Figure out how to close file
-# name: "Install TS"
+# - name: "Copy AstroNvim"
+#   git:
+#     repo: "git@github.com:glorisonlai/astronvimv4_config.git"
+#     dest: "{{ nvim_config_path }}"
+#     update: true
