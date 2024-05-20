@@ -6,3 +6,6 @@
     - role: "roles/configure-tmux"
     - role: "roles/configure-nvim"
     - role: "roles/install-gh-cli"
+    - role: "roles/setup-shared-clipboard"
+    - role: "roles/install-docker"
+    - role: "roles/install-tools"

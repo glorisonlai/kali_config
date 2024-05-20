@@ -1,19 +1,19 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "kalilinux/rolling"
-  config.vm.define "kali"
+  config.vm.define "kalivBox"
 
   config.vm.provider "libvirt" do |libvirt|
-    libvirt.cpus = 1
-    libvirt.memory = 4096
+    libvirt.cpus = 2
+    libvirt.memory = 8192 
     libvirt.storage_pool_name="kali"
     libvirt.driver="kvm"
     libvirt.uri="qemu:///system"
   end
 
   config.vm.provider "virtualbox" do |vb|
-    vb.gui = false
-    vb.memory = 1024
-    vb.cpus = 1
+    vb.gui = true
+    vb.memory = 8192
+    vb.cpus = 2
     vb.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
     vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
   end

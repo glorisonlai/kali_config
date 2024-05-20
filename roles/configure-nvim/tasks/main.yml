@@ -10,17 +10,17 @@
     dest: "{{ nvim_source_path }}"
 - name: "Install Nvim"
   ansible.builtin.shell:
-    chdir: "{{nvim_source_path}}"
-    cmd: "chmod u+x nvim.appimage"
+    chdir: "/home/vagrant"
+    cmd: "chmod u+x neovim"
 - name: "Expose Nvim Globally"
   ansible.builtin.shell:
-    chdir: "{{nvim_source_path}}"
-    cmd: "sudo mkdir -p /opt/nvim && sudo cp nvim.appimage /opt/nvim/nvim"
+    chdir: "/home/vagrant"
+    cmd: "sudo mkdir -p /opt/nvim && sudo cp neovim /opt/nvim/nvim"
 - name: "Add Nvim to PATH"
   ansible.builtin.shell:
     cmd: "echo 'export PATH=$PATH:/opt/nvim' >> ~/.zshrc"
-# - name: "Copy AstroNvim"
-#   git:
-#     repo: "git@github.com:glorisonlai/astronvimv4_config.git"
-#     dest: "{{ nvim_config_path }}"
-#     update: true
+- name: "Copy AstroNvim"
+  ansible.builtin.git:
+    repo: "https://github.com/AstroNvim/template"
+    dest: "{{ nvim_config_path }}"
+    force: true

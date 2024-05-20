@@ -9,7 +9,7 @@
     cmd: "sh -c $(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 - name: "Copy OMZ config"
   ansible.builtin.get_url:
-    url: "https://raw.githubusercontent.com/glorisonlai/zsh_config/main/zshrc"
+    url: "https://github.com/glorisonlai/zsh_config.git"
     dest: "{{ omz_config_dir }}"
 - name: "Create Zshrc bak"
   ansible.builtin.shell:

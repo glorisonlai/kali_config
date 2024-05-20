@@ -1,0 +1,20 @@
+---
+# tasks file for install-tools
+- name: "Get Seclists"
+  apt:
+    name: ["seclists"]
+    state: present
+  become: true
+
+- name: "Install Pyenv"
+  ansible.builtin.shell:
+    cmd: "curl https://pyenv.run | bash"
+
+- name: "Install Pyenv Virtualenv"
+  ansible.builtin.get_url:
+    url: "https://github.com/pyenv/pyenv-virtualenv.git"
+    dest: "~/.pyenv/plugins/pyenv-virtualenv"
+
+- name: "Alias Rustscan in zshrc"
+  ansible.builtin.shell:
+    cmd: 'echo ''alias rustscan="docker run -it --rm --name rustscan/rustscan:2.1.1"'' >> ~/.zshrc'
